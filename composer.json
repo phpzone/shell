@@ -1,0 +1,47 @@
+{
+    "name":        "phpzone/shell",
+    "description": "",
+    "type":        "library",
+    "license":     "MIT",
+    "authors":     [
+        {
+            "name":  "Jakub Zapletal",
+            "email": "zapletal.jakub@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php":                          ">=5.3",
+        "phpzone/phpzone":              "dev-master",
+        "symfony/dependency-injection": "~2.3",
+        "symfony/process":              "~2.3"
+    },
+
+    "require-dev": {
+        "behat/behat":                         "~3.0",
+        "phpspec/phpspec":                     "~2.2",
+        "squizlabs/php_codesniffer":           "~2.0",
+        "jakubzapletal/php_codesniffer-rules": "~0.1",
+        "bossa/phpspec2-expect":               "~1.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "PhpZone\\Shell\\": "src/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "PhpZone\\Behat\\": "features/bootstrap"
+        }
+    },
+
+    "minimum-stability": "dev",
+
+    "bin": ["bin/"],
+
+    "repositories": [
+        {"type": "vcs", "url": "ssh://git@github.com/phpzone/phpzone.git"}
+    ]
+}

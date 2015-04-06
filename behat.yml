@@ -1,0 +1,6 @@
+default:
+    suites:
+        application:
+            contexts: [ PhpZone\Behat\ApplicationContext ]
+    formatters:
+        pretty: true
