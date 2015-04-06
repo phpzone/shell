@@ -42,6 +42,6 @@
     "bin": ["bin/"],
 
     "repositories": [
-        {"type": "vcs", "url": "ssh://git@github.com/phpzone/phpzone.git"}
+        {"type": "vcs", "url": "https://github.com/phpzone/phpzone.git"}
     ]
 }
