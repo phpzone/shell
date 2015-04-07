@@ -3,10 +3,12 @@
 namespace PhpZone\Shell;
 
 use PhpZone\PhpZone\Extension\Extension;
-use PhpZone\Shell\Exception\Command\NoScriptFoundException;
 use PhpZone\Shell\Process\ProcessFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Shell implements Extension
 {
@@ -16,14 +18,35 @@ class Shell implements Extension
     /** @var ProcessFactory */
     private $processFactory;
 
+    /** @var OptionsResolver */
+    private $optionsResolver;
+
     public function load(ContainerBuilder $container)
     {
         $this->container = $container;
         $this->processFactory = new ProcessFactory();
 
+        $this->optionsResolver = new OptionsResolver();
+        $this->configureOptions($this->optionsResolver);
+
         $config = $container->getParameter(get_class($this));
 
         $this->createAndRegisterDefinitions($config);
+    }
+
+    private function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setRequired(array(
+            'script',
+        ));
+
+        $optionsResolver->setDefaults(array(
+            'description' => null,
+        ));
+
+        $optionsResolver->setAllowedTypes(array(
+            'script' => 'array',
+        ));
     }
 
     private function createAndRegisterDefinitions(array $config = array())
@@ -41,20 +64,12 @@ class Shell implements Extension
      *
      * @return Definition
      *
-     * @throws NoScriptFoundException
+     * @throws MissingOptionsException
+     * @throws InvalidOptionsException
      */
     private function generateCommandDefinition($commandName, array $commandOptions)
     {
-        if (empty($commandOptions['script'])) {
-            throw new NoScriptFoundException(sprintf(
-                'Defined command "%s" does not have any script',
-                $commandName
-            ));
-        }
-
-        if (empty($commandOptions['description'])) {
-            $commandOptions['description'] = null;
-        }
+        $commandOptions = $this->optionsResolver->resolve($commandOptions);
 
         $definition = new Definition('PhpZone\Shell\Command\ScriptCommand');
         $definition->setArguments(
