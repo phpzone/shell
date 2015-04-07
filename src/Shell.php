@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Process\Process;
 
 class Shell implements Extension
 {
@@ -71,12 +72,32 @@ class Shell implements Extension
     {
         $commandOptions = $this->optionsResolver->resolve($commandOptions);
 
+        $processes = $this->generateProcesses($commandOptions['script']);
+
         $definition = new Definition('PhpZone\Shell\Command\ScriptCommand');
         $definition->setArguments(
-            array($commandName, $commandOptions['script'], $commandOptions['description'], $this->processFactory)
+            array($commandName, $commandOptions['description'], $processes)
         );
         $definition->addTag('command');
 
         return $definition;
+    }
+
+    /**
+     * @param array $script
+     *
+     * @return Process[]
+     */
+    private function generateProcesses(array $script)
+    {
+        $processes = array();
+
+        foreach ($script as $command) {
+            $process = $this->processFactory->createByCommand($command);
+
+            $processes[] = $process;
+        }
+
+        return $processes;
     }
 }

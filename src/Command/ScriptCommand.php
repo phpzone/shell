@@ -2,7 +2,6 @@
 
 namespace PhpZone\Shell\Command;
 
-use PhpZone\Shell\Process\ProcessFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,29 +10,20 @@ use Symfony\Component\Process\Process;
 class ScriptCommand extends Command
 {
     /** @var Process[] */
-    private $processes = array();
+    private $processes;
 
     /**
      * @param string $name
-     * @param array $script
-     * @param string $description
-     * @param ProcessFactory $processFactory
+     * @param null|string $description
+     * @param array $processes
      */
-    public function __construct($name, array $script, $description, ProcessFactory $processFactory)
+    public function __construct($name, $description, array $processes)
     {
-        $this->generateProcesses($processFactory, $script);
         $this->setDescription($description);
 
+        $this->processes = $processes;
+
         parent::__construct($name);
-    }
-
-    private function generateProcesses(ProcessFactory $processFactory, array $script)
-    {
-        foreach ($script as $command) {
-            $process = $processFactory->createByCommand($command);
-
-            $this->processes[] = $process;
-        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

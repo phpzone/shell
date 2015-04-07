@@ -3,14 +3,14 @@
 namespace spec\PhpZone\Shell\Command;
 
 use PhpSpec\ObjectBehavior;
-use PhpZone\Shell\Process\ProcessFactory;
 use Prophecy\Argument;
+use Symfony\Component\Process\Process;
 
 class ScriptCommandSpec extends ObjectBehavior
 {
-    public function let(ProcessFactory $processFactory)
+    public function let(Process $process)
     {
-        $this->beConstructedWith('command:test', array('ls'), 'test description', $processFactory);
+        $this->beConstructedWith('command:test', 'test description', array($process));
     }
 
     public function it_is_initializable()
