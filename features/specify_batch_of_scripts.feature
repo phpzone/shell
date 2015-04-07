@@ -9,8 +9,9 @@ Feature: Specifying a batch of scripts
       extensions:
           PhpZone\Shell\Shell:
               'command:one':
-                  - echo test 1
-                  - echo test 2
+                  script:
+                      - echo test 1
+                      - echo test 2
 
       """
     When I run phpzone with "command:one"

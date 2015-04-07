@@ -10,7 +10,7 @@ class ScriptCommandSpec extends ObjectBehavior
 {
     public function let(ProcessFactory $processFactory)
     {
-        $this->beConstructedWith('command:test', array('ls'), $processFactory);
+        $this->beConstructedWith('command:test', array('ls'), 'test description', $processFactory);
     }
 
     public function it_is_initializable()
@@ -28,8 +28,8 @@ class ScriptCommandSpec extends ObjectBehavior
         $this->getName()->shouldBeLike('command:test');
     }
 
-    public function it_should_fail_when_no_process_given(ProcessFactory $processFactory)
+    public function it_should_have_description_when_description_given()
     {
-        $this->shouldThrow('\RuntimeException')->during('__construct', array('test', array(), $processFactory));
+        $this->getDescription()->shouldBeLike('test description');
     }
 }

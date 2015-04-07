@@ -2,7 +2,6 @@
 
 namespace PhpZone\Shell\Command;
 
-use PhpZone\Shell\Exception\Command\NoCommandsFoundException;
 use PhpZone\Shell\Process\ProcessFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,28 +15,21 @@ class ScriptCommand extends Command
 
     /**
      * @param string $name
-     * @param array $commands
+     * @param array $script
+     * @param string $description
      * @param ProcessFactory $processFactory
-     *
-     * @throws NoCommandsFoundException
      */
-    public function __construct($name, array $commands, ProcessFactory $processFactory)
+    public function __construct($name, array $script, $description, ProcessFactory $processFactory)
     {
-        if (count($commands) === 0) {
-            throw new NoCommandsFoundException(sprintf(
-                'Defined command "%s" does not have any command',
-                $name
-            ));
-        }
-
-        $this->generateProcesses($processFactory, $commands);
+        $this->generateProcesses($processFactory, $script);
+        $this->setDescription($description);
 
         parent::__construct($name);
     }
 
-    private function generateProcesses(ProcessFactory $processFactory, array $commands)
+    private function generateProcesses(ProcessFactory $processFactory, array $script)
     {
-        foreach ($commands as $command) {
+        foreach ($script as $command) {
             $process = $processFactory->createByCommand($command);
 
             $this->processes[] = $process;

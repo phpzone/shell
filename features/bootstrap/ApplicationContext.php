@@ -51,4 +51,12 @@ class ApplicationContext implements Context, SnippetAcceptingContext
     {
         expect($this->tester->getDisplay())->shouldBeLike($content->getRaw());
     }
+
+    /**
+     * @Then I should see :text in :command command description
+     */
+    public function iShouldSeeInCommandDescription($text, $command)
+    {
+        expect($this->application->get($command)->getDescription())->shouldBeLike($text);
+    }
 }

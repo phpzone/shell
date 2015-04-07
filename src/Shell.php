@@ -3,31 +3,65 @@
 namespace PhpZone\Shell;
 
 use PhpZone\PhpZone\Extension\Extension;
+use PhpZone\Shell\Exception\Command\NoScriptFoundException;
 use PhpZone\Shell\Process\ProcessFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 class Shell implements Extension
 {
+    /** @var ContainerBuilder */
+    private $container;
+
+    /** @var ProcessFactory */
+    private $processFactory;
+
     public function load(ContainerBuilder $container)
     {
+        $this->container = $container;
+        $this->processFactory = new ProcessFactory();
+
         $config = $container->getParameter(get_class($this));
 
-        $this->createAndRegisterDefinitions($container, $config);
+        $this->createAndRegisterDefinitions($config);
     }
 
-    private function createAndRegisterDefinitions(ContainerBuilder $container, array $config = array())
+    private function createAndRegisterDefinitions(array $config = array())
     {
-        $processFactory = new ProcessFactory();
-
         foreach ($config as $commandName => $commandOptions) {
-            if (is_array($commandOptions)) {
-                $definition = new Definition('PhpZone\Shell\Command\ScriptCommand');
-                $definition->setArguments(array($commandName, $commandOptions, $processFactory));
-                $definition->addTag('command');
+            $definition = $this->generateCommandDefinition($commandName, $commandOptions);
 
-                $container->setDefinition('phpzone.shell.' . $commandName, $definition);
-            }
+            $this->container->setDefinition('phpzone.shell.' . $commandName, $definition);
         }
+    }
+
+    /**
+     * @param string $commandName
+     * @param array $commandOptions
+     *
+     * @return Definition
+     *
+     * @throws NoScriptFoundException
+     */
+    private function generateCommandDefinition($commandName, array $commandOptions)
+    {
+        if (empty($commandOptions['script'])) {
+            throw new NoScriptFoundException(sprintf(
+                'Defined command "%s" does not have any script',
+                $commandName
+            ));
+        }
+
+        if (empty($commandOptions['description'])) {
+            $commandOptions['description'] = null;
+        }
+
+        $definition = new Definition('PhpZone\Shell\Command\ScriptCommand');
+        $definition->setArguments(
+            array($commandName, $commandOptions['script'], $commandOptions['description'], $this->processFactory)
+        );
+        $definition->addTag('command');
+
+        return $definition;
     }
 }

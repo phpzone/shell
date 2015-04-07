@@ -5,11 +5,11 @@ namespace spec\PhpZone\Shell\Exception\Command;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class NoCommandsFoundExceptionSpec extends ObjectBehavior
+class NoScriptFoundExceptionSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('PhpZone\Shell\Exception\Command\NoCommandsFoundException');
+        $this->shouldHaveType('PhpZone\Shell\Exception\Command\NoScriptFoundException');
     }
 
     public function it_should_extend_base_exception()
