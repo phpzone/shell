@@ -2,6 +2,7 @@
 
 namespace PhpZone\Shell\Command;
 
+use PhpZone\Shell\Exception\Command\NoCommandsFoundException;
 use PhpZone\Shell\Process\ProcessFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,12 +18,14 @@ class ScriptCommand extends Command
      * @param string $name
      * @param array $commands
      * @param ProcessFactory $processFactory
+     *
+     * @throws NoCommandsFoundException
      */
     public function __construct($name, array $commands, ProcessFactory $processFactory)
     {
         if (count($commands) === 0) {
-            throw new \RuntimeException(sprintf(
-                'Defined command "%s" does not have any process',
+            throw new NoCommandsFoundException(sprintf(
+                'Defined command "%s" does not have any command',
                 $name
             ));
         }
