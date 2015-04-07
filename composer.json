@@ -39,8 +39,6 @@
 
     "minimum-stability": "dev",
 
-    "bin": ["bin/"],
-
     "repositories": [
         {"type": "vcs", "url": "https://github.com/phpzone/phpzone.git"}
     ]
