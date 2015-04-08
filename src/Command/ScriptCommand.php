@@ -29,12 +29,10 @@ class ScriptCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         foreach ($this->processes as $process) {
-            $process->run(function ($type, $buffer) use ($output) {
-                if (Process::ERR === $type) {
-                    $output->write('ERR > ' . $buffer);
-                } else {
-                    $output->write($buffer);
-                }
+            $process->setTty(true);
+            $process->start();
+            $process->wait(function ($type, $buffer) use ($output) {
+                $output->write($buffer);
             });
         }
     }
