@@ -42,11 +42,23 @@ class ScriptCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         foreach ($this->processes as $process) {
+            if (OutputInterface::VERBOSITY_VERY_VERBOSE <= $output->getVerbosity()) {
+                $this->printCommandLine($process, $output);
+            }
+
             $process->setTty(!$input->getOption('no-tty'));
             $process->start();
             $process->wait(function ($type, $buffer) use ($output) {
                 $output->write($buffer);
             });
         }
+    }
+
+    private function printCommandLine(Process $process, OutputInterface $output)
+    {
+        $section = '<fg=white;bg=red> Command </fg=white;bg=red>';
+        $commandLine = '<fg=black;bg=white> ' . $process->getCommandLine(). ' </fg=black;bg=white>';
+
+        $output->writeln($section . $commandLine);
     }
 }
