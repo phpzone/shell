@@ -41,7 +41,10 @@ class ApplicationContext implements Context, SnippetAcceptingContext
      */
     public function iRunPhpzoneWith($command)
     {
-        $this->tester->run(array($command));
+        $input = array('--no-tty' => true);
+        $input = array_merge($input, array($command));
+
+        $this->tester->run($input);
     }
 
     /**
