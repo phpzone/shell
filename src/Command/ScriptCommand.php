@@ -24,12 +24,10 @@ class ScriptCommand extends Command
 
         $this->processes = $processes;
 
-
         parent::__construct($name);
-        $this->configureOptions();
     }
 
-    private function configureOptions()
+    protected function configure()
     {
         $this->addOption(
             '--no-tty',
@@ -57,7 +55,7 @@ class ScriptCommand extends Command
     private function printCommandLine(Process $process, OutputInterface $output)
     {
         $section = '<fg=white;bg=red> Command </fg=white;bg=red>';
-        $commandLine = '<fg=black;bg=white> ' . $process->getCommandLine(). ' </fg=black;bg=white>';
+        $commandLine = '<fg=black;bg=white> ' . $process->getCommandLine() . ' </fg=black;bg=white>';
 
         $output->writeln($section . $commandLine);
     }
