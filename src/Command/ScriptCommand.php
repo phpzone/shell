@@ -39,16 +39,59 @@ class ScriptCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $verbosity = $output->getVerbosity();
+
+        $debugFormatter = null;
+
+        if (OutputInterface::VERBOSITY_DEBUG == $verbosity) {
+            // Backward compatibility: The Debug Formatter helper was introduced in Symfony 2.6.
+            if ($this->getHelperSet()->has('debug_formatter')) {
+                $debugFormatter = $this->getHelper('debug_formatter');
+            }
+        }
+
         foreach ($this->processes as $process) {
-            if (OutputInterface::VERBOSITY_VERY_VERBOSE <= $output->getVerbosity()) {
-                $this->printCommandLine($process, $output);
+            $processId = spl_object_hash($process);
+
+            if (OutputInterface::VERBOSITY_VERY_VERBOSE <= $verbosity) {
+                if ($debugFormatter) {
+                    $output->writeln($debugFormatter->start(
+                        $processId,
+                        $process->getCommandLine()
+                    ));
+                } else {
+                    $this->printCommandLine($process, $output);
+                }
+
             }
 
             $process->setTty(!$input->getOption('no-tty'));
             $process->start();
-            $process->wait(function ($type, $buffer) use ($output) {
-                $output->write($buffer);
+            $process->wait(function ($type, $buffer) use ($output, $verbosity, $debugFormatter, $processId) {
+                if (OutputInterface::VERBOSITY_DEBUG == $verbosity) {
+                    if ($debugFormatter) {
+                        $output->writeln($debugFormatter->progress(
+                            $processId,
+                            $buffer,
+                            Process::ERR === $type
+                        ));
+                    } else {
+                        $output->write($buffer);
+                    }
+                } else {
+                    $output->write($buffer);
+                }
             });
+
+            if (OutputInterface::VERBOSITY_DEBUG == $verbosity) {
+                if ($debugFormatter) {
+                    $output->writeln($debugFormatter->stop(
+                        $processId,
+                        sprintf('Exited with %d (%s)', $process->getExitCode(), $process->getExitCodeText()),
+                        $process->isSuccessful()
+                    ));
+                }
+            }
         }
     }
 
