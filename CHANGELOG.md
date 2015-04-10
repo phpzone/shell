@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
 
+## [0.1.2] - 2015-04-10
+### Changed
+- Set PhpZone dependency on 0.1.*
+
 ## [0.1.1] - 2015-04-08
 ### Added
 - Option to disable TTY mode.
@@ -15,5 +19,6 @@ All notable changes to this project will be documented in this file.
 - Option to set up command description.
 - Implementation for running basic batch of scripts.
 
-[unreleased]: https://github.com/phpzone/shell/compare/0.1.1...HEAD
+[unreleased]: https://github.com/phpzone/shell/compare/0.1.2...HEAD
+[0.1.2]: https://github.com/phpzone/shell/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/phpzone/shell/compare/0.1.0...0.1.1
