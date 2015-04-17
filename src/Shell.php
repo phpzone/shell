@@ -2,7 +2,7 @@
 
 namespace PhpZone\Shell;
 
-use PhpZone\PhpZone\Extension\Extension;
+use PhpZone\PhpZone\Extension\AbstractExtension;
 use PhpZone\Shell\Process\ProcessFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Process\Process;
 
-class Shell implements Extension
+class Shell extends AbstractExtension
 {
     /** @var ContainerBuilder */
     private $container;
@@ -22,7 +22,7 @@ class Shell implements Extension
     /** @var OptionsResolver */
     private $optionsResolver;
 
-    public function load(ContainerBuilder $container)
+    public function load(array $config, ContainerBuilder $container)
     {
         $this->container = $container;
         $this->processFactory = new ProcessFactory();
@@ -30,9 +30,7 @@ class Shell implements Extension
         $this->optionsResolver = new OptionsResolver();
         $this->configureOptions($this->optionsResolver);
 
-        $config = $container->getParameter(get_class($this));
-
-        $this->createAndRegisterDefinitions($config);
+        $this->createAndRegisterDefinitions($config[0]);
     }
 
     private function configureOptions(OptionsResolver $optionsResolver)

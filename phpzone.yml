@@ -3,7 +3,7 @@ extensions:
         tests:
             description: Run all tests
             script:
-                - php -d xdebug.max_nesting_level=255 bin/behat -f progress
+                - bin/behat -f progress
                 - bin/phpspec run -f progress
                 - bin/phpcs -p --colors --standard=PSR2 src/ features/bootstrap/
                 - bin/phpcs -p --colors --standard=vendor/jakubzapletal/php_codesniffer-rules/psr2-without-camel-case-method-name.xml spec/

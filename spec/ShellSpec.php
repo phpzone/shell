@@ -12,8 +12,8 @@ class ShellSpec extends ObjectBehavior
         $this->shouldHaveType('PhpZone\Shell\Shell');
     }
 
-    public function it_should_implement_phpzone_extension()
+    public function it_should_implement_symfony_di_extension()
     {
-        $this->shouldImplement('PhpZone\PhpZone\Extension\Extension');
+        $this->shouldImplement('Symfony\Component\DependencyInjection\Extension\ExtensionInterface');
     }
 }

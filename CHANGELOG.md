@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
+### Fixed
+- BC changes for extensions in PhpZone 0.2.
 
 ## [0.1.2] - 2015-04-10
 ### Changed
