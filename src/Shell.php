@@ -3,7 +3,9 @@
 namespace PhpZone\Shell;
 
 use PhpZone\PhpZone\Extension\AbstractExtension;
+use PhpZone\Shell\Config\Definition\Configuration;
 use PhpZone\Shell\Process\ProcessFactory;
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -30,21 +32,18 @@ class Shell extends AbstractExtension
         $this->optionsResolver = new OptionsResolver();
         $this->configureOptions($this->optionsResolver);
 
-        $this->createAndRegisterDefinitions($config[0]);
+        $processor = new Processor();
+        $configuration = new Configuration();
+        $config = $processor->processConfiguration($configuration, $config);
+
+        $this->createAndRegisterDefinitions($config);
     }
 
     private function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array(
-            'script',
-        ));
-
         $optionsResolver->setDefaults(array(
             'description' => null,
-        ));
-
-        $optionsResolver->setAllowedTypes(array(
-            'script' => 'array',
+            'script'      => array(),
         ));
     }
 
