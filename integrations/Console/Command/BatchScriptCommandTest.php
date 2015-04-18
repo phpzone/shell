@@ -10,7 +10,12 @@ class BatchScriptCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function test_it_should_run_process()
     {
-        $command = new BatchScriptCommand('test', null, array('echo test batch script'));
+        $options = array(
+            'description' => null,
+            'help'        => null,
+            'script'      => array('echo test batch script'),
+        );
+        $command = new BatchScriptCommand('test', $options);
 
         $application = new Application();
         $application->add($command);
@@ -30,7 +35,12 @@ class BatchScriptCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function test_it_should_fail_when_no_scripts_given()
     {
-        $command = new BatchScriptCommand('test', null, array());
+        $options = array(
+            'description' => null,
+            'help'        => null,
+            'script'      => array(),
+        );
+        $command = new BatchScriptCommand('test', $options);
 
         $application = new Application();
         $application->add($command);

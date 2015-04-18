@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
+### Added
+- Option to set up command help.
+
 ### Fixed
 - BC changes for extensions in PhpZone 0.2.
 

@@ -9,7 +9,13 @@ class BatchScriptCommandSpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith('command:test', 'test description', array('script'));
+        $options = array(
+            'description' => 'test description',
+            'help'        => 'test help',
+            'script'      => array('script'),
+        );
+
+        $this->beConstructedWith('command:test', $options);
     }
 
     public function it_is_initializable()
@@ -30,5 +36,10 @@ class BatchScriptCommandSpec extends ObjectBehavior
     public function it_should_have_description_when_description_given()
     {
         $this->getDescription()->shouldBeLike('test description');
+    }
+
+    public function it_should_have_help_when_help_given()
+    {
+        $this->getHelp()->shouldBeLike('test help');
     }
 }

@@ -37,6 +37,7 @@ class Shell extends AbstractExtension
     {
         $optionsResolver->setDefaults(array(
             'description' => null,
+            'help'        => null,
             'script'      => array(),
         ));
     }
@@ -65,7 +66,7 @@ class Shell extends AbstractExtension
 
         $definition = new Definition('PhpZone\Shell\Console\Command\BatchScriptCommand');
         $definition->setArguments(
-            array($commandName, $resolvedCommandOptions['description'], $resolvedCommandOptions['script'])
+            array($commandName, $resolvedCommandOptions)
         );
         $definition->addTag('command');
 

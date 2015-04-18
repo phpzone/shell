@@ -15,18 +15,23 @@ class BatchScriptCommand extends Command
 
     /**
      * @param string $name
-     * @param null|string $description
-     * @param array $batchScript
+     * @param array $options
      */
-    public function __construct($name, $description, array $batchScript)
+    public function __construct($name, array $options)
     {
-        if (empty($batchScript)) {
+        if (empty($options['script'])) {
             throw new InvalidScriptException('Command need to contain any script', 1);
         }
 
-        $this->batchScript = $batchScript;
+        $this->batchScript = $options['script'];
 
-        $this->setDescription($description);
+        if (!empty($options['description'])) {
+            $this->setDescription($options['description']);
+        }
+
+        if (!empty($options['help'])) {
+            $this->setHelp($options['help']);
+        }
 
         parent::__construct($name);
     }

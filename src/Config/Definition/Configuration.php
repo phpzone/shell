@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
                 ->children()
                     ->scalarNode('description')->end()
+                    ->scalarNode('help')->end()
                     ->arrayNode('script')
                         ->isRequired()
                         ->requiresAtLeastOneElement()
