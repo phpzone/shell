@@ -1,9 +1,9 @@
-Feature: Command can be disabled
+Feature: Defining an availability of a command
   As a developer
-  I want to be able to disable a command
-  So I can disable any configured command
+  I want to be able to define an availability of a command
+  So I can enable or disable any defined command
 
-  Scenario: Disabling command
+  Scenario: Disabling a command
     Given there is a config file with:
       """
       extensions:

@@ -1,9 +1,9 @@
-Feature: Specifying a description for command
+Feature: Defining a description for command
   As a developer
-  I want to be able to specify a description for command
+  I want to be able to define a description for command
   So I can see what defined command does
 
-  Scenario: Specifying a description for a command
+  Scenario: Defining a description for a command
     Given there is a config file with:
       """
       extensions:

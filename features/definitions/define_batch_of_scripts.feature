@@ -1,9 +1,9 @@
-Feature: Specifying a batch of scripts
+Feature: Defining a batch of scripts
   As a developer
-  I want to be able to specify batch of scripts
-  So I can run script by one command
+  I want to be able to define a batch of scripts
+  So I can run a batch of scripts by one command
 
-  Scenario: Specifying one script
+  Scenario: Defining one script
     Given there is a config file with:
       """
       extensions:
