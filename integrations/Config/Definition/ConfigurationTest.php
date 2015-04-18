@@ -16,13 +16,15 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'script command 1',
                     'script command 2',
                 ),
+                'enable' => true,
             ),
-            0 => array(
+            1 => array(
                 'name'        => 'command:2',
                 'description' => 'description_value',
                 'script'      => array(
                     'script command 3',
                 ),
+                'enable'      => false,
             ),
         );
 
@@ -39,12 +41,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'script command 1',
                     'script command 2',
                 ),
+                'enable' => true,
             ),
             'command:2' => array(
                 'description' => 'description_value',
                 'script'      => array(
                     'script command 3',
                 ),
+                'enable'      => false,
             ),
         ));
     }

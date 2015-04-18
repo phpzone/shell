@@ -13,6 +13,7 @@ class BatchScriptCommandSpec extends ObjectBehavior
             'description' => 'test description',
             'help'        => 'test help',
             'script'      => array('script'),
+            'enable'      => false,
         );
 
         $this->beConstructedWith('command:test', $options);
@@ -41,5 +42,10 @@ class BatchScriptCommandSpec extends ObjectBehavior
     public function it_should_have_help_when_help_given()
     {
         $this->getHelp()->shouldBeLike('test help');
+    }
+
+    public function it_should_been_disabled_when_enable_false_given()
+    {
+        $this->isEnabled()->shouldBeLike(false);
     }
 }

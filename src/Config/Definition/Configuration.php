@@ -28,6 +28,7 @@ class Configuration implements ConfigurationInterface
                         ->requiresAtLeastOneElement()
                         ->prototype('scalar')->end()
                     ->end()
+                    ->booleanNode('enable')->end()
                 ->end()
             ->end()
         ;

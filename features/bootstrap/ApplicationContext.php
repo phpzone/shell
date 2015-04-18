@@ -39,9 +39,10 @@ class ApplicationContext implements Context, SnippetAcceptingContext
     }
 
     /**
+     * @When I run phpzone
      * @When I run phpzone with :command
      */
-    public function iRunPhpzoneWith($command)
+    public function iRunPhpzoneWith($command = null)
     {
         $input = array('--no-tty' => true);
         $input = array_merge($input, array($command));
@@ -71,5 +72,21 @@ class ApplicationContext implements Context, SnippetAcceptingContext
     public function iShouldSeeInCommandHelp($text, $command)
     {
         expect($this->application->get($command)->getHelp())->shouldBeLike($text);
+    }
+
+    /**
+     * @Then I should have :commandName command
+     */
+    public function iShouldHaveCommand($commandName)
+    {
+        expect($this->application->has($commandName))->toBe(true);
+    }
+
+    /**
+     * @Then I should not have :commandName command
+     */
+    public function iShouldNotHaveCommand($commandName)
+    {
+        expect($this->application->has($commandName))->toBe(false);
     }
 }

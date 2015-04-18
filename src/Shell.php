@@ -39,6 +39,7 @@ class Shell extends AbstractExtension
             'description' => null,
             'help'        => null,
             'script'      => array(),
+            'enable'      => true,
         ));
     }
 

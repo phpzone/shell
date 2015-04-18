@@ -13,6 +13,9 @@ class BatchScriptCommand extends Command
     /** @var array[] */
     private $batchScript;
 
+    /** @var bool */
+    private $enabled = true;
+
     /**
      * @param string $name
      * @param array $options
@@ -31,6 +34,10 @@ class BatchScriptCommand extends Command
 
         if (!empty($options['help'])) {
             $this->setHelp($options['help']);
+        }
+
+        if (isset($options['enable'])) {
+            $this->enabled = $options['enable'];
         }
 
         parent::__construct($name);
@@ -61,5 +68,13 @@ class BatchScriptCommand extends Command
             $command = $this->getApplication()->find($uniqueId);
             $command->run($scriptInput, $output);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
     }
 }
