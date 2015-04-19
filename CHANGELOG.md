@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
 ### Added
+- Definition `tty` to enable/disable TTY mode.
 - Definition `enable` to enable/disable a command.
 - Definition `help` for a command help.
 

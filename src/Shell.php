@@ -40,6 +40,7 @@ class Shell extends AbstractExtension
             'help'        => null,
             'script'      => array(),
             'enable'      => true,
+            'tty'         => true,
         ));
     }
 

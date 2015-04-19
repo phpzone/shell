@@ -17,6 +17,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'script command 2',
                 ),
                 'enable' => true,
+                'tty'    => false,
             ),
             1 => array(
                 'name'        => 'command:2',
@@ -42,6 +43,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'script command 2',
                 ),
                 'enable' => true,
+                'tty'    => false,
             ),
             'command:2' => array(
                 'description' => 'description_value',

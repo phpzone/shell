@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('scalar')->end()
                     ->end()
                     ->booleanNode('enable')->end()
+                    ->booleanNode('tty')->end()
                 ->end()
             ->end()
         ;
