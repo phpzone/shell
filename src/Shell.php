@@ -36,11 +36,12 @@ class Shell extends AbstractExtension
     private function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefaults(array(
-            'description' => null,
-            'help'        => null,
-            'script'      => array(),
-            'enable'      => true,
-            'tty'         => true,
+            'description'   => null,
+            'help'          => null,
+            'script'        => array(),
+            'enable'        => true,
+            'tty'           => true,
+            'stop_on_error' => false,
         ));
     }
 

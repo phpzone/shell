@@ -39,7 +39,22 @@ class ScriptCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'  => 'test',
-            '--no-tty' => true,
         ));
+    }
+
+    public function test_it_should_return_exit_code_of_process()
+    {
+        $command = new ScriptCommand('test', 'php -r "exit(1);"');
+
+        $application = new Application();
+        $application->add($command);
+
+        $command = $application->find('test');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(array(
+            'command'  => 'test',
+        ));
+
+        expect($exitCode)->toBe(1);
     }
 }

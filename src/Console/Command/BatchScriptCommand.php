@@ -20,6 +20,9 @@ class BatchScriptCommand extends Command
     /** @var bool */
     private $tty = true;
 
+    /** @var bool */
+    private $stopOnError = false;
+
     /**
      * @param string $name
      * @param array $options
@@ -48,6 +51,10 @@ class BatchScriptCommand extends Command
             $this->tty = $options['tty'];
         }
 
+        if (isset($options['stop_on_error'])) {
+            $this->stopOnError = $options['stop_on_error'];
+        }
+
         parent::__construct($name);
     }
 
@@ -63,6 +70,8 @@ class BatchScriptCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $exitCode = 0;
+
         $inputParameters = array(
             '--no-tty' => !$this->tty
         );
@@ -80,8 +89,18 @@ class BatchScriptCommand extends Command
             $inputParameters['command'] = $uniqueId;
 
             $command = $this->getApplication()->find($uniqueId);
-            $command->run(new ArrayInput($inputParameters), $output);
+            $scriptExitCode = $command->run(new ArrayInput($inputParameters), $output);
+
+            if ($scriptExitCode > 0) {
+                if ($this->stopOnError) {
+                    return $scriptExitCode;
+                }
+
+                $exitCode = 1;
+            }
         }
+
+        return $exitCode;
     }
 
     /**

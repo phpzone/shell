@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->booleanNode('enable')->end()
                     ->booleanNode('tty')->end()
+                    ->booleanNode('stop_on_error')->end()
                 ->end()
             ->end()
         ;

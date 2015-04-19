@@ -49,7 +49,27 @@ class BatchScriptCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'  => 'test',
-            '--no-tty' => true,
         ));
+    }
+
+    public function test_it_should_fail_when_some_of_script_fail_given()
+    {
+        $options = array(
+            'description' => null,
+            'help'        => null,
+            'script'      => array('php -r "exit(1);"'),
+        );
+        $command = new BatchScriptCommand('test', $options);
+
+        $application = new Application();
+        $application->add($command);
+
+        $command = $application->find('test');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(array(
+            'command'  => 'test',
+        ));
+
+        expect($exitCode)->toBe(1);
     }
 }

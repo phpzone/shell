@@ -20,6 +20,9 @@ class ApplicationContext implements Context, SnippetAcceptingContext
     /** @var ApplicationTester */
     private $tester;
 
+    /** @var int */
+    private $exitCode;
+
     /**
      * @beforeScenario
      */
@@ -47,7 +50,7 @@ class ApplicationContext implements Context, SnippetAcceptingContext
         $input = array('--no-tty' => true);
         $input = array_merge($input, array($command));
 
-        $this->tester->run($input);
+        $this->exitCode = $this->tester->run($input);
     }
 
     /**
@@ -88,5 +91,13 @@ class ApplicationContext implements Context, SnippetAcceptingContext
     public function iShouldNotHaveCommand($commandName)
     {
         expect($this->application->has($commandName))->toBe(false);
+    }
+
+    /**
+     * @Then I should see an error
+     */
+    public function iShouldSeeAnError()
+    {
+        expect($this->exitCode > 0)->toBe(true);
     }
 }

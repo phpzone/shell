@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
 ### Added
+- Definition `stop_on_error` to stop on error and not attempt to process remaining scripts.
 - Definition `tty` to enable/disable TTY mode.
 - Definition `enable` to enable/disable a command.
 - Definition `help` for a command help.

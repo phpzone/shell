@@ -102,6 +102,8 @@ class ScriptCommand extends Command
                 ));
             }
         }
+
+        return $process->getExitCode();
     }
 
     private function printCommandLine(Process $process, OutputInterface $output)

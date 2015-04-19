@@ -11,13 +11,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $configTest = array(
             'command:1' => array(
-                'help'   => 'help text',
-                'script' => array(
+                'help'          => 'help text',
+                'script'        => array(
                     'script command 1',
                     'script command 2',
                 ),
-                'enable' => true,
-                'tty'    => false,
+                'enable'        => true,
+                'tty'           => false,
+                'stop-on-error' => true,
             ),
             1 => array(
                 'name'        => 'command:2',
@@ -37,13 +38,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         expect($processedConfiguration)->shouldBeLike(array(
             'command:1' => array(
-                'help'   => 'help text',
-                'script' => array(
+                'help'          => 'help text',
+                'script'        => array(
                     'script command 1',
                     'script command 2',
                 ),
-                'enable' => true,
-                'tty'    => false,
+                'enable'        => true,
+                'tty'           => false,
+                'stop_on_error' => true,
             ),
             'command:2' => array(
                 'description' => 'description_value',
