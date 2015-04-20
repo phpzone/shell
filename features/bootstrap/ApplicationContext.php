@@ -44,11 +44,16 @@ class ApplicationContext implements Context, SnippetAcceptingContext
     /**
      * @When I run phpzone
      * @When I run phpzone with :command
+     * @When I run phpzone with :command and :option
      */
-    public function iRunPhpzoneWith($command = null)
+    public function iRunPhpzoneWithAnd($command = null, $option = null)
     {
         $input = array('--no-tty' => true);
         $input = array_merge($input, array($command));
+
+        if ($option !== null) {
+            $input = array_merge($input, array($option => true));
+        }
 
         $this->exitCode = $this->tester->run($input);
     }

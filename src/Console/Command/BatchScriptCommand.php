@@ -66,6 +66,13 @@ class BatchScriptCommand extends Command
             InputOption::VALUE_NONE,
             'Disable TTY mode'
         );
+
+        $this->addOption(
+            '--stop-on-error',
+            null,
+            InputOption::VALUE_NONE,
+            'Stop on the first script error and avoid to process of remaining scripts'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -78,6 +85,10 @@ class BatchScriptCommand extends Command
 
         if ($input->getOption('no-tty')) {
             $inputParameters['--no-tty'] = $input->getOption('no-tty');
+        }
+
+        if ($input->getOption('stop-on-error')) {
+            $this->stopOnError = true;
         }
 
         foreach ($this->batchScript as $script) {
