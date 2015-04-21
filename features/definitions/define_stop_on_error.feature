@@ -37,4 +37,9 @@ Feature: Defining a stop on a script error
     Then I should see an error
     And I should see:
       """
+
+        Remaining scripts:
+        2) echo text script 2
+
+
       """

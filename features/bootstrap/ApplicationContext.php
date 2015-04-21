@@ -63,7 +63,12 @@ class ApplicationContext implements Context, SnippetAcceptingContext
      */
     public function iShouldSee(PyStringNode $content)
     {
-        expect($this->tester->getDisplay())->shouldBeLike($content->getRaw());
+        $displayArray = explode("\n", $this->tester->getDisplay());
+        array_walk($displayArray, function (&$line) {
+            $line = rtrim($line);
+        });
+
+        expect($displayArray)->shouldBeLike($content->getStrings());
     }
 
     /**

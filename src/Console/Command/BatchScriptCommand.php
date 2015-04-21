@@ -91,24 +91,35 @@ class BatchScriptCommand extends Command
             $this->stopOnError = true;
         }
 
-        foreach ($this->batchScript as $script) {
-            $uniqueId = uniqid($this->getName() . ':');
+        $errorRemainingScripts = array('Remaining scripts:');
 
-            $command = new ScriptCommand($uniqueId, $script);
-            $this->getApplication()->add($command);
+        foreach ($this->batchScript as $index => $script) {
+            if ($exitCode > 0 && $this->stopOnError) {
+                $errorRemainingScripts[] = (sprintf('%d) %s', $index + 1, $script));
+            } else {
+                $uniqueId = uniqid($this->getName() . ':');
 
-            $inputParameters['command'] = $uniqueId;
+                $command = new ScriptCommand($uniqueId, $script);
+                $this->getApplication()->add($command);
 
-            $command = $this->getApplication()->find($uniqueId);
-            $scriptExitCode = $command->run(new ArrayInput($inputParameters), $output);
+                $inputParameters['command'] = $uniqueId;
 
-            if ($scriptExitCode > 0) {
-                if ($this->stopOnError) {
-                    return $scriptExitCode;
+                $command = $this->getApplication()->find($uniqueId);
+                $scriptExitCode = $command->run(new ArrayInput($inputParameters), $output);
+
+                if ($scriptExitCode > 0) {
+                    if ($this->stopOnError) {
+                        $exitCode = $scriptExitCode;
+                    } else {
+                        $exitCode = 1;
+                    }
                 }
-
-                $exitCode = 1;
             }
+        }
+
+        if ($exitCode > 0 && $this->stopOnError) {
+            $formattedBlock = $this->getHelper('formatter')->formatBlock($errorRemainingScripts, 'comment', true);
+            $output->writeln($formattedBlock);
         }
 
         return $exitCode;
