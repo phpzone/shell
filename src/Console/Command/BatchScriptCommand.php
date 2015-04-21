@@ -99,12 +99,10 @@ class BatchScriptCommand extends Command
             } else {
                 $uniqueId = uniqid($this->getName() . ':');
 
-                $command = new ScriptCommand($uniqueId, $script);
-                $this->getApplication()->add($command);
-
                 $inputParameters['command'] = $uniqueId;
 
-                $command = $this->getApplication()->find($uniqueId);
+                $command = new ScriptCommand($uniqueId, $script);
+                $command->setApplication($this->getApplication());
                 $scriptExitCode = $command->run(new ArrayInput($inputParameters), $output);
 
                 if ($scriptExitCode > 0) {
