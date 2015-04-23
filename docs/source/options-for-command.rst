@@ -28,13 +28,13 @@ examples are valid:
 When some of defined commands in the script fails, remaining commands are still executed. If it is used, this option
 forces to stop in case of any error and not attempt to execute remaining commands. For more details
 there are displayed remaining commands which weren't executed. This option overwrites the ``stop_on_error``
-`definition <definitions-for-command#stop-on-error>`_.
+`definition <definitions-for-command.html#stop-on-error>`_.
 
 --no-tty
 ^^^^^^^^
 
 In default all commands are executed in TTY mode. If this option is used, commands are not executed in TTY mode.
 This option overwrites the ``tty``
-`definition <definitions-for-command#tty>`_.
+`definition <definitions-for-command.html#tty>`_.
 
 
