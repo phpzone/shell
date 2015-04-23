@@ -1,7 +1,7 @@
 Definitions For Command
 =======================
 
-Commands can contain following optional/required definitions:
+Commands can contain following definitions:
 
 +-------------+-------+-------+--------+
 |Name         |Type   |Default|Required|
@@ -49,7 +49,7 @@ Type    Default Required
 array           Yes
 ======= ======= ========
 
-A simple array of commands/script which should be executed. They are executed in exact order as defined.
+A simple array of commands/scripts which should be executed. They are executed in exact order as defined.
 
 description
 ^^^^^^^^^^^
@@ -69,7 +69,7 @@ Type    Default Required
 boolean true    No
 ======= ======= ========
 
-All defined commands are enabled in default. Sometimes can be useful to disable a command without its removal.
+All defined commands are enabled by default. Sometimes can be useful to disable a command without its removal.
 
 help
 ^^^^
@@ -90,8 +90,8 @@ boolean false   No
 ======= ======= ========
 
 When some of defined commands in the script fails, remaining commands are still executed. If set to ``true``,
-this definition forces to stop in case of any error and not attempt to execute remaining commands. For more details
-there are displayed remaining commands which weren't executed.
+this definition forces to stop in case of any error and not attempt to execute remaining commands. A list of the
+remaining commands will be displayed.
 
 tty
 ^^^
@@ -101,4 +101,4 @@ Type    Default Required
 boolean true    No
 ======= ======= ========
 
-It is a definition of how commands are executed. In default all commands are executed in TTY mode.
+It is a definition of how commands are executed. By default all commands are executed in TTY mode.

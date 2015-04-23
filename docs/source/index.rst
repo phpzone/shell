@@ -17,7 +17,7 @@ Basic Usage
 
 An example speaks a hundred words so let’s go through one.
 
-The configuration file below is used for a development of this extension:
+The configuration file below is used for the development of this extension:
 
 .. literalinclude:: ../../phpzone.yml
     :language: yaml
