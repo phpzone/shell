@@ -21,7 +21,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'stop-on-error' => true,
             ),
             1 => array(
-                'name'        => 'command:2',
+                'id'          => 'command:2',
                 'description' => 'description_value',
                 'script'      => array(
                     'script command 3',

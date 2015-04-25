@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('shell');
 
         $rootNode
-            ->useAttributeAsKey('name')
+            ->useAttributeAsKey('id')
             ->prototype('array')
                 ->children()
                     ->scalarNode('description')->end()
