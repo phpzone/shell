@@ -78,4 +78,4 @@ we would see an output: ``Command 1 is working``
 
 
 .. _Composer: https://getcomposer.org
-.. _PhpZone - Getting Started: http://www.phpzone.org/en/latest/getting-started.html#configuration-file
+.. _PhpZone - Getting Started: http://docs.phpzone.org/en/latest/getting-started.html#configuration-file

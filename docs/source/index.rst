@@ -7,7 +7,7 @@ PhpZone Shell
     getting-started
     definitions-for-command
     options-for-command
-    PhpZone <http://www.phpzone.org>
+    PhpZone <http://docs.phpzone.org>
 
 A command/script builder configured by `YAML`_, based on `PhpZone`_. Its primary purpose is to
 provide an easy way to define multiple scripts used in daily workflow of every developer.
@@ -30,4 +30,4 @@ Now we can just run following command and all tests would be executed:
 
 
 .. _YAML: http://symfony.com/doc/current/components/yaml/yaml_format.html
-.. _PhpZone: http://www.phpzone.org
+.. _PhpZone: http://docs.phpzone.org
