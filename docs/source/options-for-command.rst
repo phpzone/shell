@@ -36,5 +36,3 @@ will be displayed. This option overwrites the ``stop_on_error``
 By default all commands are executed in TTY mode. If this option is used, commands are not executed in TTY mode.
 This option overwrites the ``tty``
 `definition <definitions-for-command.html#tty>`_.
-
-

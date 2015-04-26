@@ -3,11 +3,20 @@ PhpZone Shell
 
 .. toctree::
     :hidden:
+    :caption: Shell
+    :numbered:
 
     getting-started
     definitions-for-command
     options-for-command
+
+.. toctree::
+    :hidden:
+    :caption: Links
+
     PhpZone <http://docs.phpzone.org>
+    PhpZone Docker <http://docs.phpzone.org/projects/phpzone-docker>
+
 
 A command/script builder configured by `YAML`_, based on `PhpZone`_. Its primary purpose is to
 provide an easy way to define multiple scripts used in daily workflow of every developer.
