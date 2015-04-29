@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased][unreleased]
+
+## [0.2.0-beta]
 ### Added
 - Option `--stop-on-error` to force a stop on a script error.
 - Definition `stop_on_error` to stop on error and not attempt to process remaining scripts.
@@ -28,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - Definition `description` for a command description.
 - Implementation for running basic batch of scripts by the `script` definition.
 
-[unreleased]: https://github.com/phpzone/shell/compare/0.1.2...HEAD
+[unreleased]: https://github.com/phpzone/shell/compare/0.2.0-beta...HEAD
+[0.2.0-beta]: https://github.com/phpzone/shell/compare/0.1.2...0.2.0-beta
 [0.1.2]: https://github.com/phpzone/shell/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/phpzone/shell/compare/0.1.0...0.1.1
